@@ -20,6 +20,7 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
     private final CourseMapper courseMapper;
+    private final CourseSubscriptionMailService courseSubscriptionMailService;
 
     @Transactional
     public CourseResponse subscribe(UUID courseId, UUID userId) {
@@ -44,6 +45,8 @@ public class CourseService {
         course.getSubscribers().add(user);
 
         Course savedCourse = courseRepository.save(course);
+
+        courseSubscriptionMailService.sendConfirmation(user, savedCourse);
 
         return courseMapper.toResponse(savedCourse);
     }
