@@ -8,12 +8,6 @@ import java.util.UUID;
 @Table(name = "subscription")
 public class SubscriptionEntity {
     @Id private UUID id;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
-
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    private CourseEntity courseEntity;
+    private UUID userId;
+    private UUID courseId;
 }
