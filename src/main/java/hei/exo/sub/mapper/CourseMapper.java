@@ -9,16 +9,14 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class CourseMapper {
 
-    private final UserMapper userMapper;
+  private final UserMapper userMapper;
 
-    public CourseResponse toResponse(Course course) {
-        return new CourseResponse(
-                course.getId(),
-                course.getTitle(),
-                course.getStart(),
-                course.getEnd(),
-                course.getSubscribers().stream()
-                        .map(userMapper::toResponse)
-                        .toList());
-    }
+  public CourseResponse toResponse(Course course) {
+    return new CourseResponse(
+        course.getId(),
+        course.getTitle(),
+        course.getStart(),
+        course.getEnd(),
+        course.getSubscribers().stream().map(userMapper::toResponse).toList());
+  }
 }

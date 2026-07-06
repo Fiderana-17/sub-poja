@@ -5,8 +5,4 @@ import java.util.List;
 import java.util.UUID;
 
 public record CourseResponse(
-        UUID id,
-        String title,
-        Instant start,
-        Instant end,
-        List<UserResponse> subscribers) {}
+    UUID id, String title, Instant start, Instant end, List<UserResponse> subscribers) {}

@@ -19,26 +19,26 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Course {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
-    @NotBlank(message = "The title is mandatory")
-    @Column(name = "title", nullable = false)
-    private String title;
+  @NotBlank(message = "The title is mandatory")
+  @Column(name = "title", nullable = false)
+  private String title;
 
-    @NotNull(message = "The start is mandatory")
-    @Column(name = "start", nullable = false)
-    private Instant start;
+  @NotNull(message = "The start is mandatory")
+  @Column(name = "start_date", nullable = false)
+  private Instant start;
 
-    @NotNull(message = "The end is mandatory")
-    @Column(name = "end", nullable = false)
-    private Instant end;
+  @NotNull(message = "The end is mandatory")
+  @Column(name = "end_date", nullable = false)
+  private Instant end;
 
-    @ManyToMany
-    @JoinTable(
-            name = "course_subscription",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> subscribers;
+  @ManyToMany
+  @JoinTable(
+      name = "course_subscription",
+      joinColumns = @JoinColumn(name = "course_id"),
+      inverseJoinColumns = @JoinColumn(name = "user_id"))
+  private List<User> subscribers;
 }

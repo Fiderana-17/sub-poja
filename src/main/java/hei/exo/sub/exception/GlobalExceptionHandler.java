@@ -12,45 +12,45 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ApiException.class)
-    public ResponseEntity<ExceptionBody> handleApiException(
-            ApiException exception, HttpServletRequest request) {
-        return ResponseEntity.status(exception.getStatus().value())
-                .body(
-                        new ExceptionBody(
-                                exception.getStatus().value(),
-                                exception.getStatus().getReasonPhrase(),
-                                exception.getMessage(),
-                                request.getRequestURI(),
-                                Instant.now()));
-    }
+  @ExceptionHandler(ApiException.class)
+  public ResponseEntity<ExceptionBody> handleApiException(
+      ApiException exception, HttpServletRequest request) {
+    return ResponseEntity.status(exception.getStatus().value())
+        .body(
+            new ExceptionBody(
+                exception.getStatus().value(),
+                exception.getStatus().getReasonPhrase(),
+                exception.getMessage(),
+                request.getRequestURI(),
+                Instant.now()));
+  }
 
-    @ExceptionHandler({
-            MethodArgumentNotValidException.class,
-            MethodArgumentTypeMismatchException.class
-    })
-    public ResponseEntity<ExceptionBody> handleBadRequestException(
-            Exception exception, HttpServletRequest request) {
-        return ResponseEntity.badRequest()
-                .body(
-                        new ExceptionBody(
-                                400,
-                                "Bad Request",
-                                exception.getMessage(),
-                                request.getRequestURI(),
-                                Instant.now()));
-    }
+  @ExceptionHandler({
+    MethodArgumentNotValidException.class,
+    MethodArgumentTypeMismatchException.class
+  })
+  public ResponseEntity<ExceptionBody> handleBadRequestException(
+      Exception exception, HttpServletRequest request) {
+    return ResponseEntity.badRequest()
+        .body(
+            new ExceptionBody(
+                400,
+                "Bad Request",
+                exception.getMessage(),
+                request.getRequestURI(),
+                Instant.now()));
+  }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionBody> handleException(
-            Exception exception, HttpServletRequest request) {
-        return ResponseEntity.status(500)
-                .body(
-                        new ExceptionBody(
-                                500,
-                                "An internal error has occurred",
-                                exception.getMessage(),
-                                request.getRequestURI(),
-                                Instant.now()));
-    }
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<ExceptionBody> handleException(
+      Exception exception, HttpServletRequest request) {
+    return ResponseEntity.status(500)
+        .body(
+            new ExceptionBody(
+                500,
+                "An internal error has occurred",
+                exception.getMessage(),
+                request.getRequestURI(),
+                Instant.now()));
+  }
 }

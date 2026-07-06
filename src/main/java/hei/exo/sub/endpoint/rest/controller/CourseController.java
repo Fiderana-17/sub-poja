@@ -15,12 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class CourseController {
 
-    private final CourseService courseService;
+  private final CourseService courseService;
 
-    @PostMapping("/courses/{id}/subscribe")
-    public CourseResponse subscribe(
-            @PathVariable UUID id,
-            @Valid @RequestBody SubscribeCourseRequest request) {
-        return courseService.subscribe(id, request.userId());
-    }
+  @PostMapping("/courses/{id}/subscribe")
+  public CourseResponse subscribe(
+      @PathVariable UUID id, @Valid @RequestBody SubscribeCourseRequest request) {
+    return courseService.subscribe(id, request.userId());
+  }
 }

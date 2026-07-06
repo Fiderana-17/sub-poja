@@ -17,37 +17,34 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class CourseService {
 
-    private final CourseRepository courseRepository;
-    private final UserRepository userRepository;
-    private final CourseMapper courseMapper;
-    private final CourseSubscriptionMailService courseSubscriptionMailService;
+  private final CourseRepository courseRepository;
+  private final UserRepository userRepository;
+  private final CourseMapper courseMapper;
+  private final CourseSubscriptionMailService courseSubscriptionMailService;
 
-    @Transactional
-    public CourseResponse subscribe(UUID courseId, UUID userId) {
-        Course course =
-                courseRepository
-                        .findById(courseId)
-                        .orElseThrow(() -> new NotFoundException("Course not found"));
+  @Transactional
+  public CourseResponse subscribe(UUID courseId, UUID userId) {
+    Course course =
+        courseRepository
+            .findById(courseId)
+            .orElseThrow(() -> new NotFoundException("Course not found"));
 
-        User user =
-                userRepository
-                        .findById(userId)
-                        .orElseThrow(() -> new NotFoundException("User not found"));
+    User user =
+        userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
 
-        boolean alreadySubscribed =
-                course.getSubscribers().stream()
-                        .anyMatch(subscriber -> subscriber.getId().equals(userId));
+    boolean alreadySubscribed =
+        course.getSubscribers().stream().anyMatch(subscriber -> subscriber.getId().equals(userId));
 
-        if (alreadySubscribed) {
-            throw new ConflictException("User already subscribed to this course");
-        }
-
-        course.getSubscribers().add(user);
-
-        Course savedCourse = courseRepository.save(course);
-
-        courseSubscriptionMailService.sendConfirmation(user, savedCourse);
-
-        return courseMapper.toResponse(savedCourse);
+    if (alreadySubscribed) {
+      throw new ConflictException("User already subscribed to this course");
     }
+
+    course.getSubscribers().add(user);
+
+    Course savedCourse = courseRepository.save(course);
+
+    courseSubscriptionMailService.sendConfirmation(user, savedCourse);
+
+    return courseMapper.toResponse(savedCourse);
+  }
 }

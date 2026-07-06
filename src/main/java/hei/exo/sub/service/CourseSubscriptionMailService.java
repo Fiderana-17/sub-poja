@@ -14,31 +14,26 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CourseSubscriptionMailService {
 
-    private final Mailer mailer;
+  private final Mailer mailer;
 
-    @SneakyThrows
-    public void sendConfirmation(User user, Course course) {
-        InternetAddress recipient = new InternetAddress(user.getEmail());
+  @SneakyThrows
+  public void sendConfirmation(User user, Course course) {
+    InternetAddress recipient = new InternetAddress(user.getEmail());
 
-        String body =
-                """
-                <p>Hello %s,</p>
-        
-                <p>Your registration for the course <strong>%s</strong> has been confirmed.</p>
-        
-                <p>Best regards,<br>The Team</p>
-                """
-                        .formatted(user.getFirstName(), course.getTitle());
+    String body =
+        """
+        <p>Hello %s,</p>
 
-        Email email =
-                new Email(
-                        recipient,
-                        List.of(),
-                        List.of(),
-                        "Course registration confirmation",
-                        body,
-                        List.of());
+        <p>Your registration for the course <strong>%s</strong> has been confirmed.</p>
 
-        mailer.accept(email);
-    }
+        <p>Best regards,<br>The Team</p>
+        """
+            .formatted(user.getFirstName(), course.getTitle());
+
+    Email email =
+        new Email(
+            recipient, List.of(), List.of(), "Course registration confirmation", body, List.of());
+
+    mailer.accept(email);
+  }
 }
