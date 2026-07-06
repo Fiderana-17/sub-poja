@@ -1,5 +1,6 @@
 package hei.exo.sub.endpoint.rest.controller;
 
+import hei.exo.sub.dto.request.CreateCourseRequest;
 import hei.exo.sub.dto.request.SubscribeCourseRequest;
 import hei.exo.sub.dto.response.CourseResponse;
 import hei.exo.sub.service.CourseService;
@@ -16,6 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class CourseController {
 
   private final CourseService courseService;
+
+  @PostMapping("/courses")
+  public CourseResponse create(@Valid @RequestBody CreateCourseRequest request) {
+    return courseService.create(request);
+  }
 
   @PostMapping("/courses/{id}/subscribe")
   public CourseResponse subscribe(
