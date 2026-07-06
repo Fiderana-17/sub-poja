@@ -1,5 +1,6 @@
 package hei.exo.sub.service;
 
+import hei.exo.sub.dto.request.CreateCourseRequest;
 import hei.exo.sub.dto.response.CourseResponse;
 import hei.exo.sub.exception.ConflictException;
 import hei.exo.sub.exception.NotFoundException;
@@ -21,6 +22,15 @@ public class CourseService {
   private final UserRepository userRepository;
   private final CourseMapper courseMapper;
   private final CourseSubscriptionMailService courseSubscriptionMailService;
+
+  @Transactional
+  public CourseResponse create(CreateCourseRequest request) {
+    Course course = courseMapper.toEntity(request);
+
+    Course savedCourse = courseRepository.save(course);
+
+    return courseMapper.toResponse(savedCourse);
+  }
 
   @Transactional
   public CourseResponse subscribe(UUID courseId, UUID userId) {
