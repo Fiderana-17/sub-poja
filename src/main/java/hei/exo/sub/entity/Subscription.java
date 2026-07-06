@@ -1,4 +1,4 @@
-package hei.exo.sub.model;
+package hei.exo.sub.entity;
 
 import jakarta.persistence.*;
 

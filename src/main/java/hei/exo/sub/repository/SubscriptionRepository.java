@@ -1,6 +1,6 @@
 package hei.exo.sub.repository;
 
-import hei.exo.sub.model.Subscription;
+import hei.exo.sub.entity.Subscription;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
