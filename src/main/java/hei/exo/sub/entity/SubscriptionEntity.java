@@ -6,14 +6,14 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "subscription")
-public class Subscription {
+public class SubscriptionEntity {
     @Id private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity userEntity;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
-    private Course course;
+    private CourseEntity courseEntity;
 }
